@@ -1,7 +1,9 @@
+import { Header } from './components/Layout';
+
 const App = () => {
   return (
     <>
-      <h1>Home</h1>
+      <Header />
     </>
   );
 };
