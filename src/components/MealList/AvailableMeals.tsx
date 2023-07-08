@@ -1,3 +1,4 @@
+import Card from '@/components/UI/Card';
 import { DUMMY_MEALS } from '@/data/dummy-meals';
 import styles from './AvailableMeals.module.css';
 
@@ -6,7 +7,9 @@ const AvailableMeals = () => {
 
   return (
     <section className={styles.meals}>
-      <ul>{mealList}</ul>
+      <Card>
+        <ul>{mealList}</ul>
+      </Card>
     </section>
   );
 };
