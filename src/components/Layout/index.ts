@@ -1,3 +1,4 @@
 import Header from './Header';
+import HeaderCartButton from './HeaderCartButton';
 
-export { Header };
+export { Header, HeaderCartButton };
