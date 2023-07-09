@@ -1,4 +1,6 @@
-export const DUMMY_MEALS = [
+import type { IMeal } from '@/types';
+
+export const DUMMY_MEALS: IMeal[] = [
   {
     id: 'm1',
     name: 'Sushi',
