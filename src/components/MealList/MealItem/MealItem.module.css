@@ -1,4 +1,4 @@
-const .meal {
+.meal {
   display: flex;
   justify-content: space-between;
   margin: 1rem;
