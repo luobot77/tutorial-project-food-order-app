@@ -10,11 +10,11 @@ const App = () => {
 
   const handleShowCart = () => {
     setIsCartShown(true);
-  }
+  };
 
   const handleHideCart = () => {
     setIsCartShown(false);
-  }
+  };
 
   return (
     <CartProvider>
