@@ -1,3 +1,5 @@
+import { useContext } from 'react';
+import CartContext from '@/store/cart-context';
 import MealItemForm from './MealItemForm';
 import styles from './MealItem.module.css';
 
@@ -12,7 +14,19 @@ const MealItem = ({
   description: string;
   price: number;
 }) => {
+  const cartCtx = useContext(CartContext);
+  if (!cartCtx) throw new Error('MealItem: CartContext is not defined');
+
   const formattedPrice = `$${price.toFixed(2)}`;
+
+  const handleAddToCart = (amount: number) => {
+    cartCtx.addItem({
+      id,
+      name,
+      amount,
+      price,
+    });
+  };
 
   return (
     <li className={styles.meal}>
@@ -22,7 +36,7 @@ const MealItem = ({
         <div className={styles.price}>{formattedPrice}</div>
       </div>
       <div>
-        <MealItemForm id={id} />
+        <MealItemForm id={id} onAddToCart={handleAddToCart} />
       </div>
     </li>
   );

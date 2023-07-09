@@ -6,9 +6,7 @@ import CartIcon from '@/components/Cart/CartIcon';
 const HeaderCartButton = ({ onClick }: { onClick: () => void }) => {
   const cartCtx = useContext(CartContext);
 
-  if (!cartCtx) {
-    throw new Error('HeaderCartButton: CartContext is not defined');
-  }
+  if (!cartCtx) throw new Error('HeaderCartButton: CartContext is not defined');
 
   const numberOfCartItems = cartCtx.items.reduce((cartNumber, item) => {
     return cartNumber + item.amount;
