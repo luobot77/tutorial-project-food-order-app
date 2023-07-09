@@ -1,28 +1,48 @@
+import { useContext } from 'react';
+import CartContext from '@/store/cart-context';
 import Modal from '@/components/UI/Modal';
 import type { TCartItem } from '@/types';
 import styles from './Cart.module.css';
-
-const cartItemsData: TCartItem[] = [
-  { id: 'c1', name: 'Sushi', amount: 2, price: 12.99 },
-  { id: 'c2', name: 'Schnitzel', amount: 3, price: 16.5 },
-  { id: 'c3', name: 'Barbecue Burger', amount: 1, price: 22.99 },
-];
+import CartItem from './CartItem';
 
 const Cart = ({ onClose }: { onClose: () => void }) => {
-  const cartItems = cartItemsData.map((item) => <li key={item.id}>{item.name}</li>);
+  const cartCtx = useContext(CartContext);
+  if (!cartCtx) throw new Error('Cart: cartCtx is not defined');
+
+  const formattedTotalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const hasItems = cartCtx.items.length > 0;
+
+  const handleRemoveCartItem = (id: string) => {
+    // ...
+  };
+
+  const handleAddCartItem = (item: TCartItem) => {
+    // ...
+  };
+
+  const cartItems = cartCtx.items.map((item) => (
+    <CartItem
+      key={item.id}
+      name={item.name}
+      amount={item.amount}
+      price={item.price}
+      onRemove={handleRemoveCartItem.bind(null, item.id)}
+      onAdd={handleAddCartItem.bind(null, item)}
+    />
+  ));
 
   return (
     <Modal onClose={onClose}>
       <ul className={styles.cartItems}>{cartItems}</ul>
       <div className={styles.total}>
         <span>Total Amount</span>
-        <span>35.62</span>
+        <span>{formattedTotalAmount}</span>
       </div>
       <div className={styles.actions}>
         <button className={styles['button--alt']} onClick={onClose}>
           Close
         </button>
-        <button className={styles.button}>Order</button>
+        {hasItems && <button className={styles.button}>Order</button>}
       </div>
     </Modal>
   );
