@@ -49,8 +49,30 @@ const cartReducer: Reducer<TCartState, TCartAction> = (state, action) => {
       };
     }
     case ECartActionType.REMOVE: {
-      // TODO:
-      return state;
+      // 檢查購物車是否已有該商品項目
+      const existingCartItemIndex = state.items.findIndex((item) => item.id === action.id);
+      const existingCartItem = state.items[existingCartItemIndex];
+      // 更新總金額
+      const updatedTotalAmount = state.totalAmount - existingCartItem.price;
+
+      let updatedItems;
+      // 如果購物車中該商品項目的數量為 1，則刪除該商品項目
+      if (existingCartItem.amount === 1) {
+        updatedItems = state.items.filter((item) => item.id !== action.id);
+      } else {
+        // 如果購物車中該商品項目的數量大於 1，則更新其數量
+        const updatedItem = {
+          ...existingCartItem,
+          amount: existingCartItem.amount - 1,
+        };
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+      }
+
+      return {
+        items: updatedItems,
+        totalAmount: updatedTotalAmount,
+      };
     }
     default:
       throw new Error('cartReducer: unknown cart action type');

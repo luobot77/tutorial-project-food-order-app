@@ -13,7 +13,7 @@ const Cart = ({ onClose }: { onClose: () => void }) => {
   const hasItems = cartCtx.items.length > 0;
 
   const handleRemoveCartItem = (id: string) => {
-    // ...
+    cartCtx.removeItem(id);
   };
 
   const handleAddCartItem = (item: TCartItem) => {
