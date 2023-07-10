@@ -22,8 +22,26 @@ const initialCartState: TCartState = {
 const cartReducer: Reducer<TCartState, TCartAction> = (state, action) => {
   switch (action.type) {
     case ECartActionType.ADD: {
-      const updatedItems = state.items.concat(action.item); // concat 返回新的 array
+      // 更新總金額
       const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+
+      // 檢查購物車是否已有該商品項目
+      const existingCartItemIndex = state.items.findIndex((item) => item.id === action.item.id);
+      const existingCartItem = state.items[existingCartItemIndex];
+
+      let updatedItems;
+      // 如果購物車中已經有該商品項目，則更新其數量
+      if (existingCartItem) {
+        const updatedItem = {
+          ...existingCartItem,
+          amount: existingCartItem.amount + action.item.amount,
+        };
+        updatedItems = [...state.items];
+        updatedItems[existingCartItemIndex] = updatedItem;
+      } else {
+        // 如果購物車中沒有該商品項目，則新增該商品
+        updatedItems = state.items.concat(action.item); // concat 返回新的 array
+      }
 
       return {
         items: updatedItems,
@@ -31,7 +49,7 @@ const cartReducer: Reducer<TCartState, TCartAction> = (state, action) => {
       };
     }
     case ECartActionType.REMOVE: {
-      // TODO: 
+      // TODO:
       return state;
     }
     default:

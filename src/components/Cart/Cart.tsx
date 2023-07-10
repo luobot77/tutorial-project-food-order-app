@@ -17,7 +17,7 @@ const Cart = ({ onClose }: { onClose: () => void }) => {
   };
 
   const handleAddCartItem = (item: TCartItem) => {
-    // ...
+    cartCtx.addItem({ ...item, amount: 1 });
   };
 
   const cartItems = cartCtx.items.map((item) => (
