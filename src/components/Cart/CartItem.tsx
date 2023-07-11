@@ -1,3 +1,4 @@
+import { TCartItem } from '@/types';
 import styles from './CartItem.module.css';
 
 const CartItem = ({
@@ -10,8 +11,8 @@ const CartItem = ({
   price: number;
   name: string;
   amount: number;
-  onRemove: unknown;
-  onAdd: unknown;
+  onRemove: () => void;
+  onAdd: () => void;
 }) => {
   const formattedPrice = `$${price.toFixed(2)}`;
 
