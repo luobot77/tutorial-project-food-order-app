@@ -1,14 +1,11 @@
-import { useContext } from 'react';
-import CartContext from '@/store/cart-context';
 import Modal from '@/components/UI/Modal';
 import type { TCartItem } from '@/types';
 import styles from './Cart.module.css';
 import CartItem from './CartItem';
+import useCartContext from '@/hooks/useCartContext';
 
 const Cart = ({ onClose }: { onClose: () => void }) => {
-  const cartCtx = useContext(CartContext);
-  if (!cartCtx) throw new Error('Cart: cartCtx is not defined');
-
+  const cartCtx = useCartContext();
   const formattedTotalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
 

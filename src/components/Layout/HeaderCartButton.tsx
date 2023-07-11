@@ -1,12 +1,11 @@
-import { useContext, useEffect, useState } from 'react';
-import CartContext from '@/store/cart-context';
+import { useEffect, useState } from 'react';
 import styles from './HeaderCartButton.module.css';
 import CartIcon from '@/components/Cart/CartIcon';
+import useCartContext from '@/hooks/useCartContext';
 
 const HeaderCartButton = ({ onClick }: { onClick: () => void }) => {
+  const cartCtx = useCartContext();
   const [isHighlighted, setIsHighlighted] = useState(false);
-  const cartCtx = useContext(CartContext);
-  if (!cartCtx) throw new Error('HeaderCartButton: CartContext is not defined');
 
   const numberOfCartItems = cartCtx.items.reduce((cartNumber, item) => {
     return cartNumber + item.amount;
