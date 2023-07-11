@@ -1,4 +1,3 @@
-import { TCartItem } from '@/types';
 import styles from './CartItem.module.css';
 
 const CartItem = ({
